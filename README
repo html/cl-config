@@ -1,0 +1,46 @@
+
+cl-config is a small configuration library.
+
+It's main difference from usual configuration functionality is that it uses function return values as parameters so configuration can be dynamical.
+
+You set function as configuration value, when you want to get this configuration value function will be called in specific context and it's return value will be used as configuration value. 
+
+For example
+
+(cl-config:set-value 
+ :some-box-width 
+ (lambda (box-side)
+  (if (equal box-side :a)
+   10 
+   20)))
+                     ; key           key context
+
+(cl-config:get-value :some-box-width :a)
+; 10
+(cl-config:get-value :some-box-width :b)
+; 20
+
+If you want to use function itself as config value just use :functionp parameter.
+(cl-config:set-value 
+ :some-box-width-function 
+ (lambda (box-side) 123)
+ :functionp t)
+
+(cl-config:get-value :some-box-width-function)
+; #<FUNCTION (LAMBDA (BOX-SIDE)) {119E3295}>
+
+Other configuration values set as usual 
+
+(cl-config:set-value :some-key "Some value")
+
+(cl-config:get-value :some-key)
+; "Some value"
+
+And remember that you can use some kind of namespaces with keywords
+
+(cl-config:set-value :some-package.complex-key "Some value")
+
+(cl-config:get-value :some-package.complex-key)
+; "Some value"
+
+
