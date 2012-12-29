@@ -6,7 +6,7 @@
 
 (defsystem cl-config
    :name "Cl config"
-   :version "0.1"
+   :version "0.1.0"
    :author "Olexiy Zamkoviy"
    :licence "Public Domain"
    :description "Simple configuration library"
